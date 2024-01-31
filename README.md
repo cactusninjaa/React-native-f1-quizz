@@ -2,6 +2,9 @@
 
 Welcome to the Formula 1 Drivers Quiz App! This mobile application, built using React Native and Expo, is designed to test your knowledge about Formula 1 drivers. Whether you're a seasoned fan or just starting to follow the sport, this quiz will challenge and entertain you with questions about the drivers who have left their mark on the world of Formula 1.
 
+![Screen app](./app/assets/screen.png)
+
+
 ### Installation
 
 To get started with the Formula 1 Drivers Quiz App, follow these steps:
