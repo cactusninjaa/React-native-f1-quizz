@@ -9,6 +9,7 @@ import {
   TextInput,
   View,
   Alert,
+  Pressable,
 } from 'react-native';
 
 // import Button from '../components/Button';
@@ -84,10 +85,13 @@ const GameScreen = ({navigation, route}) => {
         </ScrollView>
 
         <View style={styles.bottom}>
-          <Button
+        <Pressable 
+            style={styles.button} 
             title="Confirm"
             onPress={checkDriverName}
-          />
+        >
+            <Text style={styles.text}>Confirm</Text>
+        </Pressable>
           <TextInput 
             style={styles.input}
             onChangeText={onChangeText}
@@ -116,7 +120,22 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
   },
- 
+  button: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 50,
+    borderRadius: 10,
+    padding: 10,
+    width: '100%',
+    backgroundColor: '#910011',
+  },
+  text:{
+      fontSize: 20,
+      lineHeight: 21,
+      fontWeight: 'bold',
+      letterSpacing: 0.25,
+      color: 'white',
+  },
 
   
 

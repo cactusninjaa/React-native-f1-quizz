@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Image, StyleSheet, View, Text, TouchableWithoutFeedback } from 'react-native';
+import { Modal, Image, StyleSheet, View, Text, TouchableWithoutFeedback, Pressable } from 'react-native';
 
 import TenMinClock from '../components/TenMinuteClock';
 
@@ -49,9 +49,9 @@ const Header = (props) => {
                             With its blend of excitement and competition, the F1 Drivers Challenge promises thrilling moments for all fans of motorsport.
                         </Text>
 
-                        <TouchableWithoutFeedback onPress={handleClose}>
-                            <Text style={styles.closeText}>Close</Text>
-                        </TouchableWithoutFeedback>
+                        <Pressable style={styles.button} onPress={handleClose}>
+                            <Text style={styles.buttonText}>Close</Text>
+                        </Pressable>
                     </View>
                 </Modal>
             </View>
@@ -115,6 +115,22 @@ const styles = StyleSheet.create({
     icon: {
         width: 34,
         height: 34,
+    },
+    button: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: 50,
+        borderRadius: 10,
+        padding: 10,
+        width: '100%',
+        backgroundColor: '#910011',
+      },
+    buttonText:{
+        fontSize: 20,
+        lineHeight: 21,
+        fontWeight: 'bold',
+        letterSpacing: 0.25,
+        color: 'white',
     },
 });
 
