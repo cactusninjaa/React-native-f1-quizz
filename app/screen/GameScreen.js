@@ -19,18 +19,11 @@ import NameCard from '../components/NameCard';
 
 
 const GameScreen = ({navigation, route}) => { 
-  const years = [
-    2023, 
-    2022,
-    2021,
-    2020,
-    2019,
-    2018,
-    2017,
-    2016,
-    2015,
-    2014
-  ]
+  const years = []
+  for(let i = 1; i <11; i++){
+    years.push(new Date().getUTCFullYear() - i)
+  }
+  
   const [driverName, setDriverName] = useState('');
   const [driverNames, setDriverNames] = useState([]);
 
@@ -136,10 +129,6 @@ const styles = StyleSheet.create({
       letterSpacing: 0.25,
       color: 'white',
   },
-
-  
-
-  
 })
 
 export default GameScreen;
