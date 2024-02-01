@@ -10,6 +10,9 @@ import {
   View,
   Alert,
   Pressable,
+  Keyboard,
+  Platform,
+  KeyboardAvoidingView,
 } from 'react-native';
 
 // import Button from '../components/Button';
@@ -23,6 +26,27 @@ const GameScreen = ({navigation, route}) => {
   for(let i = 1; i <11; i++){
     years.push(new Date().getUTCFullYear() - i)
   }
+
+  const [keyboardStatus, setKeyboardStatus] = useState(false);
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      () => {
+        setKeyboardStatus(true);
+      }
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => {
+        setKeyboardStatus(false);
+      }
+    );
+  
+    return () => {
+      keyboardDidHideListener.remove();
+      keyboardDidShowListener.remove();
+    };
+  }, []);
   
   const [driverName, setDriverName] = useState('');
   const [driverNames, setDriverNames] = useState([]);
@@ -48,17 +72,18 @@ const GameScreen = ({navigation, route}) => {
   const onChangeText = (text) => setDriverName(text);
 
   const checkDriverName = () => {
-    if (!driverNames.includes(driverName)){
-      if(realDriverName.includes(driverName))
+    const formattedInputName = driverName.trim().toLowerCase();
+
+    if (!driverNames.map(name => name.toLowerCase()).includes(formattedInputName)){
+      if(realDriverName.map(name => name.toLowerCase()).includes(formattedInputName))
           addDriverName()
       else
         Alert.alert("Ce n'est pas un pilote")
-        setDriverName('') // Réinitialiser l'input
-    }
-    else 
+    } else {
       Alert.alert("Déjà écrit")
-      setDriverName('') // Réinitialiser l'input
-    console.log(realDriverName)
+    }
+
+    setDriverName('') // Réinitialiser l'input
   }
 
   const addDriverName = () => {
@@ -77,21 +102,26 @@ const GameScreen = ({navigation, route}) => {
           ))}          
         </ScrollView>
 
-        <View style={styles.bottom}>
-        <Pressable 
-            style={styles.button} 
-            title="Confirm"
-            onPress={checkDriverName}
-        >
-            <Text style={styles.text}>Confirm</Text>
-        </Pressable>
+        <KeyboardAvoidingView 
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          style={styles.bottom}
+          >
+          <Pressable 
+              style={styles.button} 
+              title="Confirm"
+              onPress={checkDriverName}
+          >
+              <Text style={styles.text}>Confirm</Text>
+          </Pressable>
           <TextInput 
             style={styles.input}
             onChangeText={onChangeText}
             value={driverName}
             placeholder='Driver name'
           />        
-        </View>
+          <View style={{ height: keyboardStatus ? 100 : 0 }}></View> 
+
+        </KeyboardAvoidingView>
 
       </SafeAreaView>
     );
